@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset ('bootstrap/css/bootstrap-table.css') }}">
 </head>
 <body>
     
-    <h1 class="text-center">Selamat Datang Di SprayMaxx</h1>
+    <h1 class="text-center mt-3">Beranda</h1>
+
+    <div class="mt-3">
+    @yield('konten')
+ </div>
 </body>
 </html>
