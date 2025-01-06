@@ -23,6 +23,5 @@ Cara menjalankan project SPRAYMAXX adalah berikut
        Migrasikan tabel ke database Anda dengan perintah ( php artisan migrate )  
        Install npm pada terminal dengan Perintah ( npm install )  
        Jalankan npm pada terminal dengan Perintah ( npm run build )  
-       
        Jalankan server Laravel dengan perintah ( php artisan serve )  
         
