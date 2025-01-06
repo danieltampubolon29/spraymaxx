@@ -21,4 +21,7 @@ Cara menjalankan project SPRAYMAXX adalah berikut
        Generate Application Key dengan perintah ( php artisan key:generate )  
        Hapus Cache Konfigurasi dengan Perintah ( php artisan config:clear )  
        Migrasikan tabel ke database Anda dengan perintah ( php artisan migrate )  
+       Install npm pada terminal dengan Perintah ( npm install)
+       Jalankan npm pada terminal dengan Perintah ( npm run dev)
        Jalankan server Laravel dengan perintah ( php artisan serve )  
+        
