@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
