@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +26,8 @@ Route::middleware(['auth', 'userMiddleware'])->group(function(){
 Route::middleware(['auth', 'adminMiddleware'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
+
+route::get('/booking',[BookingController::class,'booking'])->name('booking.dashboard');
+route::get('/booking/create',[BookingController::class,'create'])->name('booking.create');
+route::post('/booking/store',[BookingController::class,'store'])->name('booking.store');
+
