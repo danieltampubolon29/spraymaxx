@@ -360,4 +360,5 @@
 }
 body{
   color: #808080;
+  background-color: var(--gray);
 }

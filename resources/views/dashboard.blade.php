@@ -1,14 +1,11 @@
 <x-sidebar>
-    <div class="dashboard-content p-2 bg-light d-flex justify-content-between align-items-center">
-        <p class="me-3">Selamat Datang Di SPRAYMAXX</p> <!-- me-3 memberi margin kanan pada teks -->
-        <img src="{{ asset('img/logo.webp') }}" class="ms-2"
-            style="width: 60px; height: auto; border-radius: 50%;margin-right: 30px;">
-    </div>
+    <x-header>Dashboard</x-header>
+
     <div class="container ">
         <h2 class="text-center mb-4">HISTORY BOOKING</h2>
         <!-- Responsive Table -->
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table id="table" class="table table-light table-striped table-hover table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>NO</th>
@@ -19,7 +16,6 @@
                         <th>Type</th>
                         <th>Harga</th>
                         <th>AKSI</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -39,5 +35,5 @@
             </table>
         </div>
     </div>
-
+    
 </x-sidebar>
