@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SPRAYMAXX</title>
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
     {{-- box icon & font-awesome --}}
@@ -135,13 +136,13 @@
             @endauth
         @endif
 
-        <div class="theme-wrapper">
+        {{-- <div class="theme-wrapper">
             <i class="bx bxs-moon theme-icon"></i>
             <p id="theme-text"></p>
             <div class="theme-btn">
                 <span class="theme-ball"></span>
             </div>
-        </div>
+        </div> --}}
     </section>
     <section class="home">
         {{ $slot }}

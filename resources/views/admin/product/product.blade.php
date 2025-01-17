@@ -1,86 +1,176 @@
 <x-sidebar>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h2>Product Details</h2>
-                <a href="{{ route('product.create') }}" type="button"
-                    class="mb-3 btn btn-primary float-end">{{ __('Tambah Product') }} </a>
+    <x-header>Product Page</x-header>
+    <div class="container ">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="card-body table-responsive">
-                <table id="table" class="table table-light table-striped table-hover table-bordered text-center">
-                    <thead class="table-dark">
+        @endif
+            <div class="d-flex justify-content-between mb-3 mt-3">
+                <a class="btn btn-warning" href="{{ route('brand.index') }}">Brand</a>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Product</button>
+        </div>
+        <div class="table-responsive">
+            <table id="table" class="table table-light table-striped table-hover table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th class="table-dark text-center">No</th>
+                        <th class="table-dark text-center">Nama Brand</th>
+                        <th class="table-dark text-center">Jenis Kendaraan</th>
+                        <th class="table-dark text-center">Tipe Product</th>
+                        <th class="table-dark text-center">Harga</th>
+                        <th class="table-dark text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($product as $item)
                         <tr>
-                            <th>NO</th>
-                            <th>Jenis Kendaraan</th>
-                            <th>Merk</th>
-                            <th>Type</th>
-                            <th>Harga</th>
-                            <th>Aksi</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->brand ? $item->brand->nama_brand : 'Tidak ada Brand   ' }}</td>
+                            <td>{{ $item->jenis_kendaraan }}</td>
+                            <td>{{ $item->nama_tipe }}</td>
+                            <td>{{ $item->harga }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editModal{{ $item->id }}">Edit</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ $item->id }}">Hapus</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $data)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $data->jenis_kendaraan }}</td>
-                                <td>{{ $data->merk }}</td>
-                                <td>{{ $data->type }}</td>
-                                <td>{{ $data->harga }}</td>
-                                <td>
-                                    <form action="{{ route('product.delete', $data->id) }}" method="post"
-                                        id="delete-form-{{ $data->id }}">
-                                        @csrf
-                                        @method('delete')
-                                        <a href="{{ route('product.edit', $data->id) }}"
-                                            class="btn btn-warning">Edit</a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#confirmModal" onclick="setDeleteId({{ $data->id }})">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+
+                        <!-- Modal Edit -->
+                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true"
+                            data-bs-backdrop="false">
+                            <div class="modal-dialog">
+                                <form action="{{ route('product.update', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Product
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="brand_id" class="form-label">Pilih Brand</label>
+                                                <select name="brand_id" id="brand_id" class="form-control" required>
+                                                    <option value="">Pilih Brand</option>
+                                                    @foreach ($brand as $b)
+                                                        <option value="{{ $b->id }}"
+                                                            {{ $item->brand_id == $b->id ? 'selected' : '' }}>
+                                                            {{ $b->nama_brand }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="jenis_kendaraan" class="form-label">Jenis Kendaraan</label>
+                                                <input type="text" name="jenis_kendaraan" id="jenis_kendaraan"
+                                                    class="form-control" value="{{ $item->jenis_kendaraan }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nama_tipe" class="form-label">Tipe Product</label>
+                                                <input type="text" name="nama_tipe" id="nama_tipe"
+                                                    class="form-control" value="{{ $item->nama_tipe }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="harga" class="form-label">Harga</label>
+                                                <input type="number" name="harga" id="harga" class="form-control"
+                                                    value="{{ $item->harga }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Modal Delete -->
+                        <div data-bs-backdrop="false" class="modal fade" id="deleteModal{{ $item->id }}"
+                            tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah Anda yakin ingin menghapus Product
+                                        <strong>{{ $item->nama_tipe }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <form action="{{ route('product.destroy', $item->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true"
+        data-bs-backdrop="false">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <form action="{{ route('product.store') }}" method="POST">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createModalLabel">Tambah Merk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="brand_id" class="form-label">Pilih Kendaraan</label>
+                            <select name="brand_id" id="brand_id" class="form-control" required>
+                                <option value="">Pilih Brand</option>
+                                @foreach ($brand as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_brand }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis_kendaraan" class="form-label">Jenis Kendaraan</label>
+                            <input type="text" name="jenis_kendaraan" id="jenis_kendaraan" class="form-control"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama_tipe" class="form-label">Tipe Product</label>
+                            <input type="text" name="nama_tipe" id="nama_tipe" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga</label>
+                            <input type="number" name="harga" id="harga" class="form-control" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus produk ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
-    <script>
-        let deleteFormId = null;
-
-        function setDeleteId(id) {
-            deleteFormId = id;
-        }
-
-        function confirmDelete() {
-            if (deleteFormId) {
-                document.getElementById(`delete-form-${deleteFormId}`).submit();
-            }
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
 </x-sidebar>

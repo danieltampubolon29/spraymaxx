@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
-    protected $table='products';
-    protected $fillable=[
-        'jenis_kendaraan',
-        'merk',
-        'type',
-        'harga'
-    ];
+    protected $table = 'product';
+    protected $fillable = ['jenis_kendaraan', 'nama_tipe', 'harga', 'brand_id'];
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);  
+    }
 }
