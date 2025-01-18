@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('booking', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('no_wa');
+            $table->date('tanggal_booking');
+            $table->string('nama_brand');
             $table->string('jenis_kendaraan');
-            $table->string('merk');
-            $table->string('type');
+            $table->string('nama_tipe');
             $table->integer('harga');
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('bookings');
     }
 };

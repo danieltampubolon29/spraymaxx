@@ -28,25 +28,18 @@
         @if (Auth::check() && Auth::user()->role == 'customer')
             <ul class="nav-links">
                 <li>
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('booking.create') }}">
                         <i class="bx bx-home-alt-2"></i>
                         <span class="title">Home</span>
                     </a>
                     <span class="tooltip">Home</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('booking.index')}}">
                         <i class="fas fa-book"></i>
                         <span class="title">Booking</span>
                     </a>
                     <span class="tooltip">Booking</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bx bx-credit-card"></i>
-                        <span class="title">Price List</span>
-                    </a>
-                    <span class="tooltip">Price List</span>
                 </li>
                 <li>
                     <a href="{{ url('profile') }}" class="{{ request()->is('profile.edit') ? 'active' : '' }}">
@@ -114,25 +107,6 @@
                 <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                     @csrf
                 </form>
-            @else
-                <ul class="nav-links">
-                    <li>
-                        <a href="{{ route('login') }}">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span class="title">Log In</span>
-                        </a>
-                        <span class="tooltip">Log In</span>
-                    </li>
-                    @if (Route::has('register'))
-                        <li>
-                            <a href="{{ route('register') }}">
-                                <i class="fas fa-user"></i>
-                                <span class="title">Register</span>
-                            </a>
-                            <span class="tooltip">Register</span>
-                        </li>
-                    @endif
-                </ul>
             @endauth
         @endif
 

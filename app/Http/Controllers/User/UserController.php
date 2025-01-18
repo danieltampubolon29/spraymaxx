@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        return view('dashboard');
-    }
+        return redirect()->route('booking.create');
+}
 }
