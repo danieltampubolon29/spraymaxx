@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
-{
+{   
+
     public function index()
     {
         $products = Product::all();

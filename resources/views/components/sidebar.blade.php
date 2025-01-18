@@ -70,13 +70,6 @@
                     <span class="tooltip">Home</span>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fas fa-book"></i>
-                        <span class="title">All Bookings</span>
-                    </a>
-                    <span class="tooltip">All Bookings</span>
-                </li>
-                <li>
                     <a href="{{route('product.index')}}">
                         <i class="bx bx-package"></i>
                         <span class="title">Product</span>

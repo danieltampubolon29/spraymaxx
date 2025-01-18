@@ -9,31 +9,28 @@
                     <thead>
                         <tr>
                             <th class="table-dark text-center">NO</th>
-                            <th class="table-dark text-center">TANGAL</th>
                             <th class="table-dark text-center">NAMA</th>
-                            <th class="table-dark text-center">NO TELEPON</th>
+                            <th class="table-dark text-center">NO WHATSAPP</th>
+                            <th class="table-dark text-center">TANGGAL</th>
+                            <th class="table-dark text-center">NAMA BRAND</th>
                             <th class="table-dark text-center">JENIS KENDARAAN</th>
-                            <th class="table-dark text-center">MERK</th>
-                            <th class="table-dark text-center">TYPE KE</th>
+                            <th class="table-dark text-center">TYPE KENDARAAN</th>
                             <th class="table-dark text-center">HARGA</th>
-                            <th class="table-dark text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($booking as $data)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
+                            <td>{{$loop->iteration}} </td>
+                            <td>{{$data->nama}} </td>
+                            <td>{{$data->no_wa}} </td>
+                            <td>{{$data->tanggal_booking}} </td>
+                            <td>{{$data->nama_brand}} </td>
+                            <td>{{$data->jenis_kendaraan}} </td>
+                            <td>{{$data->harga}} </td>
+                            <td>{{$data->email}} </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
